@@ -95,18 +95,13 @@ func tridiagonal(p mat.VecDense, q mat.VecDense, m int) mat.Matrix {
 			Dm1 := firstSubDiag(m, p)   //create first sub diagonal
 			Dp1 := firstSuperDiag(m, q) //create first super diagonal
 
-			matPrint(D)
-			matPrint(Dm1)
-			matPrint(Dp1)
-
 			M := zeroMat(m)
 			M.Add(Dm1, D)
 			M.Add(M, Dp1)
-			matPrint(M)
 
-			return nil
+			return M
 		} else {
-			log.Fatal("m must be greater or equal than 3")
+			log.Fatal("p and q vector must match the size: m-1")
 			return nil
 		}
 
