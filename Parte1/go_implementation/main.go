@@ -20,7 +20,8 @@ func main() {
 	p := mat.NewVecDense(m-1, p_values)
 	q := mat.NewVecDense(m-1, p_values)
 
-	tridiagonal(*p, *q, m)
+	M := tridiagonal(*p, *q, m)
+	matPrint(M)
 
 }
 
