@@ -1,5 +1,4 @@
-#Secuential Jacobi's method implementation
-#
+# Secuential Jacobi's method implementation
 function [x_k, k, err] = sec_jacobi(A, b, x_0, iterMax, tol)
   m = rows(A);
   function x_i = get_x_i(i, x_k)
