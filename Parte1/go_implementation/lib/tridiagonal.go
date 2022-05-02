@@ -1,34 +1,11 @@
-package main
+package tridiagonal
 
 import (
-	"fmt"
 	"log"
+	"math"
 
 	"gonum.org/v1/gonum/mat"
 )
-
-func main() {
-
-	m := 10 // size of matrix
-	step := 1
-
-	//create p and q vectors
-	p_values := make([]float64, m-1)
-	for i := 0; i < m-1; i++ {
-		p_values[i] = float64(1 + float64(i)*float64(step))
-	}
-	p := mat.NewVecDense(m-1, p_values)
-	q := mat.NewVecDense(m-1, p_values)
-
-	M := tridiagonal(*p, *q, m)
-	matPrint(M)
-
-}
-
-func matPrint(X mat.Matrix) {
-	fa := mat.Formatted(X, mat.Prefix(""), mat.Squeeze())
-	fmt.Printf("%v\n", fa)
-}
 
 // Checks if size of vector is m-1
 func correctLen(v mat.VecDense, m int) bool {
@@ -45,7 +22,7 @@ func setDiag(p mat.VecDense, q mat.VecDense, m int) mat.Matrix {
 	for i := 1; i <= m-2; i++ {
 		d_values[i] = float64(2) * (p.AtVec(i-1) + q.AtVec(i))
 	}
-	d_values[m-1] = p.AtVec(m - 2)
+	d_values[m-1] = float64(2) * p.AtVec(m-2)
 
 	D := mat.NewDiagDense(m, d_values) //Diagonal matrix
 	return D
@@ -84,11 +61,11 @@ func zeroMat(m int) *mat.Dense {
 //Generates a tridiagonal mxm matrix, based on the requirements specifed
 //parameters:
 //   @p = vector of length m
-//   @p = vector of length m
+//   @q = vector of length m
 //   @m = size of the square matrix
 //output:
 //   resultant tridiagonal matrix
-func tridiagonal(p mat.VecDense, q mat.VecDense, m int) mat.Matrix {
+func Tridiagonal(p mat.VecDense, q mat.VecDense, m int) *mat.Dense {
 	if m >= 3 {
 		if correctLen(p, m) && correctLen(q, m) {
 
@@ -111,4 +88,53 @@ func tridiagonal(p mat.VecDense, q mat.VecDense, m int) mat.Matrix {
 		return nil
 	}
 
+}
+
+//Checks if matrix is diagonally dominant
+func IsDiagDominant(A *mat.Dense) bool {
+	return isDiagDomByRows(A) && isDiagDomByCols(A)
+}
+
+//Checks if matrix is diagonally dominant by rows
+func isDiagDomByRows(A *mat.Dense) bool {
+	m, n := A.Caps()
+	var sumRow float64
+	isValid := true
+
+	for i := 0; i < m; i++ {
+		diagVal := math.Abs(A.At(i, i))
+		sumRow = 0
+		for j := 0; j < n; j++ {
+			if i != j {
+				sumRow += A.At(i, j)
+			}
+		}
+		if diagVal <= sumRow { //Abs(A[i,i]) must be greater than sum of the rest of values in row i
+			isValid = false
+		}
+	}
+
+	return isValid
+}
+
+//Checks if matrix is diagonally dominant by collumns
+func isDiagDomByCols(A *mat.Dense) bool {
+	m, n := A.Caps()
+	var sumCol float64
+	isValid := true
+
+	for j := 0; j < m; j++ {
+		diagVal := math.Abs(A.At(j, j))
+		sumCol = 0
+		for i := 0; i < n; i++ {
+			if i != j {
+				sumCol += A.At(i, j)
+			}
+		}
+		if diagVal <= sumCol { //Abs(A[j,j]) must be greater than sum of the rest of values in collumn j
+			isValid = false
+		}
+	}
+
+	return isValid
 }
