@@ -91,7 +91,7 @@ def p_newton_raph_d():
     print("Con un error de", sol[2])
     print('\n')
     
-    """
+
 def p_newton_raph_e():
     print('\n')
     print('Ejemplo numérico e)\n')
@@ -111,8 +111,8 @@ def p_newton_raph_e():
     print("En", sol[1], "iteraciones")
     print("Con un error de", sol[2])
     print('\n')
-    """
-    """
+
+
 def p_newton_raph_g():
     print('\n')
     print('Ejemplo numérico g)\n')
@@ -132,12 +132,12 @@ def p_newton_raph_g():
     print("En", sol[1], "iteraciones")
     print("Con un error de", sol[2])
     print('\n')
-"""
 
 
-p_newton_raph_a()
-p_newton_raph_b()
-p_newton_raph_c()
-p_newton_raph_d()
+
+#p_newton_raph_a()
+#p_newton_raph_b()
+#p_newton_raph_c()
+#p_newton_raph_d()
 #p_newton_raph_e()
 #p_newton_raph_g()
