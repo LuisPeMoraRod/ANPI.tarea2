@@ -6,18 +6,11 @@
  *  Adrián Trejos Salazar
  * 
  * 
- *                  Parte 3 Tarea 2
- * Se quiere crear un metodo iterativo en C++ que calcule la aproximacion
- * de la pseudoinversa de una matriz A ∈ R^m×n. Este metodo es la generalizacion de la 
- * ecuacion de Newton-Schulz, que se presenta en el articulo "A family of 
- * iterative methods for computing the approximate inverse of a square matrix and inner
- * inverse of a non-square matrix desarrollado" por W. Li y Z. Li.
+ *                  Parte 3 Tarea 2 Pregunta 2
  * 
  * Se utilizara:
  * Una tolerancia de 10^−5
- * Iteraciones maximas 500
- * un valor de q de 
- * y un valor de p de
+ * y un valor de p de 8
  * 
  */
 
