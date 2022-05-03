@@ -28,7 +28,7 @@ using namespace std;
 using namespace arma;
 
 double tolerancia = 0.00001;
-int p = 7;
+int p = 8;
 
 
  /** Funcion Factorial, Esta funcion retorna el numero de entrada en factorial
@@ -56,7 +56,7 @@ mat pseudoinversa(mat A){
     int normsq= max(eigval); // Calculo de normsq
     // Calcular el valor inicial
     //Se definen las constantes para las condiciones iniciales de la iteración
-    double alpha_0 = 1e-6; //Constante que acompaña el valor de x0
+    double alpha_0 = 1.7e-3; //Constante que acompaña el valor de x0
     mat x0 = (alpha_0)*A.t(); //Se define el valor inicial para x0
     mat xk = x0;
     //Generar matriz identidad y valorenes extra necesarios
@@ -93,24 +93,12 @@ mat pseudoinversa(mat A){
     return xk;
 }
 
-/** Funcion que genera una matriz A ∈ R^45×30
- * donde A i,j = i 2 + j 2 , para i = 1, 2, ..., 45 y j = 1, 2, ..., 30
- * 
- */
-mat generar_Matriz(){
-    mat A = zeros(45,30);
-    for (int i=0; i<A.n_rows; i++){
-        for (int j=0; j<A.n_cols; j++){
-            A.row(i).col(j).fill((pow(i+1,2)+ pow(j+1,2)));
-        }
-    }
-    return A;
-}
+
 
 int main(){
     cout << "    --- Aproximacion de pseudoinversa:    " << endl;
     cout << "- Se genera la matriz" << endl;
-    mat A = generar_Matriz();
+    mat A = {{1777,0},{1838,12},{1752,0},{1826,15},{1862,2},{1854,5},{1882,0},{1815,0},{1835,2},{1843,20}};
     cout << "- Se hace el calculo: " << endl;
     pseudoinversa(A);
     return 0;
